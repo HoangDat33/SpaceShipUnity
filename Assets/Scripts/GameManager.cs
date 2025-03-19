@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
     public GameObject ScoreUITextGO;
     public GameObject TimeCounterGO;
+    public GameObject pauseButton;
+    public GameObject resumeButton;
+    private bool isPaused = false;
     public enum GameManagerState
     {
         Opening,
@@ -31,6 +34,7 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Opening:
                 GameOverGO.SetActive(false);
                 playButton.SetActive(false);
+                pauseButton.SetActive(true);
                 break;
             case GameManagerState.Gameplay:
                 ScoreUITextGO.GetComponent<GameScore>().Score = 0;
@@ -39,6 +43,7 @@ public class GameManager : MonoBehaviour
                 heartSpawner.GetComponent<HeartSpawer>().ScheduleHeartSpawner();
                 enemySpawner.GetComponent<EnemySpawerController>().ScheduleEnemySpawner();
                 TimeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
+                pauseButton.SetActive(true);
                 break;
             case GameManagerState.GameOver:
                 TimeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
@@ -64,5 +69,42 @@ public class GameManager : MonoBehaviour
     public void ChangeToOpeningState()
     {
         SetGameManagerState(GameManagerState.Opening);
+    }
+
+    public void TogglePause()
+    {
+        if (isPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+
+    public void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+
+        if (pauseButton != null)
+        {
+            pauseButton.SetActive(false);
+            resumeButton.SetActive(true);
+        }
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+
+        if (resumeButton != null)
+        {
+            pauseButton.SetActive(true);
+            resumeButton.SetActive(false);
+        }
+
     }
 }
