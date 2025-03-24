@@ -10,6 +10,7 @@ TagManager:
   - EnemyBulletTag
   - ScoreTextTag
   - LiveTag
+  - NextLevelCanvas
   layers:
   - Default
   - TransparentFX

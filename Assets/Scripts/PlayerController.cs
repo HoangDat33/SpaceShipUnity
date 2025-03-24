@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
             LivesUIText.text = lives.ToString();
             if(lives == 0)
             {
-                SceneManager.LoadScene(4);
+                SceneManager.LoadScene(2);
                 //GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);
                 gameObject.SetActive(false);
             }

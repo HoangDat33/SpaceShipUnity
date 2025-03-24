@@ -1,8 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemySpawerController : MonoBehaviour
 {
-    public GameObject enemyGO;
+    public GameObject enemy1;
+    public GameObject enemy2;
 
     float maxSpawnRateInSeconds = 5f;
 
@@ -11,7 +12,7 @@ public class EnemySpawerController : MonoBehaviour
     }
     void Update()
     {
-        
+
     }
 
     void SpawnEnemy()
@@ -19,8 +20,9 @@ public class EnemySpawerController : MonoBehaviour
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
-        GameObject anEnemy = (GameObject)Instantiate(enemyGO);
-        anEnemy.transform.position = new Vector2(Random.Range(min.x, max.x), max.y );
+        GameObject enemyToSpawn = (Random.value > 0.5f) ? enemy1 : enemy2;
+        GameObject anEnemy = (GameObject)Instantiate(enemyToSpawn);
+        anEnemy.transform.position = new Vector2(Random.Range(min.x, max.x), max.y);
 
         ScheduleNextEnemySpawn();
     }

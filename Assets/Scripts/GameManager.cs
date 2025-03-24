@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public GameObject TimeCounterGO;
     public GameObject pauseButton;
     public GameObject resumeButton;
+    public GameObject quitButton;
+    public GameObject instrucButton;
+    public GameObject logoGame;
     private bool isPaused = false;
     public enum GameManagerState
     {
@@ -34,11 +37,17 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Opening:
                 GameOverGO.SetActive(false);
                 playButton.SetActive(false);
+                quitButton.SetActive(false);
+                instrucButton.SetActive(false);
+                logoGame.SetActive(false);
                 pauseButton.SetActive(true);
                 break;
             case GameManagerState.Gameplay:
                 ScoreUITextGO.GetComponent<GameScore>().Score = 0;
                 playButton.SetActive(false);
+                quitButton.SetActive(false);
+                instrucButton.SetActive(false);
+                logoGame.SetActive(false);
                 playerShip.GetComponent<PlayerController>().Init();
                 heartSpawner.GetComponent<HeartSpawer>().ScheduleHeartSpawner();
                 enemySpawner.GetComponent<EnemySpawerController>().ScheduleEnemySpawner();
@@ -106,5 +115,9 @@ public class GameManager : MonoBehaviour
             resumeButton.SetActive(false);
         }
 
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HeartSpawer : MonoBehaviour
 {
     public GameObject HeartGO;
 
-    float maxSpawnRateInSeconds = 15f;
+    float maxSpawnRateInSeconds = 30f; 
 
     void Start()
     {
@@ -42,12 +42,12 @@ public class HeartSpawer : MonoBehaviour
 
     void IncreaseSpawnRate()
     {
-        if (maxSpawnRateInSeconds > 1f)
+        if (maxSpawnRateInSeconds < 60f) 
         {
             maxSpawnRateInSeconds++;
         }
 
-        if (maxSpawnRateInSeconds == 50f)
+        if (maxSpawnRateInSeconds >= 60f) 
         {
             CancelInvoke("IncreaseSpawnRate");
         }
@@ -55,7 +55,7 @@ public class HeartSpawer : MonoBehaviour
 
     public void ScheduleHeartSpawner()
     {
-        maxSpawnRateInSeconds = 5f;
+        maxSpawnRateInSeconds = 20f; // Tăng từ 5f lên 20f để bắt đầu chậm hơn
         Invoke("SpawnHeart", maxSpawnRateInSeconds);
         InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
     }

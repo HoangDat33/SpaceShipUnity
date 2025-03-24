@@ -9,7 +9,7 @@ public class Enemy2Controller : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        speed = 4f;
+        speed = 3f;
         scoreUITextGO = GameObject.FindGameObjectWithTag("ScoreTextTag");
     }
 
