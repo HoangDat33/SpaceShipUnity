@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameScore : MonoBehaviour
 {
@@ -9,8 +10,9 @@ public class GameScore : MonoBehaviour
     int score;
     int scoreTarget = 2000;
     int bossSpawnCount = 0;
-    public GameObject bossSpawner; // GameObject chứa script BossSpawer
-    public GameObject bossObj;    // Prefab Boss (không cần thiết nếu dùng bossSpawner)
+    public GameObject bossSpawner; 
+    public GameObject bossObj;
+    [SerializeField] TextMeshProUGUI highScoreText;
 
     public int Score
     {
@@ -21,7 +23,7 @@ public class GameScore : MonoBehaviour
         set
         {
             this.score = value;
-            //CheckHighScore();
+            CheckHighScore();
             if (score >= scoreTarget)
             {
                 SpawnBossAndSetHits();
@@ -35,6 +37,7 @@ public class GameScore : MonoBehaviour
     void Start()
     {
         scoreTextUI = GetComponent<Text>();
+        UpdateHighScoreText();
     }
 
     void UpdateScoreTextUI()
@@ -70,9 +73,15 @@ public class GameScore : MonoBehaviour
 
     void CheckHighScore()
     {
-        if (score > PlayerPrefs.GetInt("HighScore"))
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
         {
             PlayerPrefs.SetInt("HighScore", score);
+            UpdateHighScoreText();
         }
+    }
+
+    void UpdateHighScoreText()
+    {
+        highScoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 }
